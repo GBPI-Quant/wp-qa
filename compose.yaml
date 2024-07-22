@@ -1,0 +1,31 @@
+services:
+
+ wordpress:
+  image: wordpress:latest
+  restart: unless-stopped
+  ports:
+    - 81:80
+  environment:
+   WORDPRESS_DB_HOST: mysql
+   WORDPRESS_DB_USER: username
+   WORDPRESS_DB_PASSWORD: password
+   WORDPRESS_DB_NAME: wordpress
+  volumes:
+   - ./wordpress:/var/www/html
+   - ./template:/var/www/html/wp-content/themes/
+   - ./plugins/:/var/www/html/wp-content/plugins/
+   - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini     
+
+ mysql:
+  image: mysql:latest
+  restart: unless-stopped
+  environment:
+   MYSQL_DATABASE: wordpress
+   MYSQL_USER: username
+   MYSQL_PASSWORD: password
+   MYSQL_RANDOM_ROOT_PASSWORD: "1"
+  volumes:
+   - ./mysql:/var/lib/mysql
+volumes:
+  wordpress: 
+  mysql:
