@@ -1,0 +1,2 @@
+# wp-qa
+local wordpress
